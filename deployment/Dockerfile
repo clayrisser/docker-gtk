@@ -9,13 +9,15 @@ MAINTAINER Jam Risser (jamrizzi)
 
 WORKDIR /app/
 
-RUN apk --no-cache add dbus \
-    gtk+3.0 \
-    xauth \
-    xhost && \
-    apk add --no-cache --virtual build-dependencies build-base \
-    gtk+3.0-dev \
-    pkgconfig
+RUN apk --no-cache add \
+        dbus \
+        gtk+3.0 \
+        xauth \
+        xhost && \
+    apk add --no-cache --virtual build-deps \
+        build-base \
+        gtk+3.0-dev \
+        pkgconfig
 
 RUN mkdir -p /etc/sudoers.d/ && \
     adduser -D default && \
@@ -24,12 +26,11 @@ RUN mkdir -p /etc/sudoers.d/ && \
     echo "default ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default && \
     chmod 0440 /etc/sudoers.d/default
 
-WORKDIR /app/
-
 ADD ./* /app/.tmp/
 RUN cd /app/.tmp/ && make src/main && \
-    apk del build-dependencies && \
+    apk del build-deps && \
     mv /app/.tmp/main /app/main && \
+    mv /app/.tmp/cat.jpg /app/cat.jpg && \
     rm -rf /app/.tmp/
 
 USER default

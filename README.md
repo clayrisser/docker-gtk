@@ -1,6 +1,8 @@
 # docker-gtk _Alpha_
 Run GTK GUI apps with docker
 
+![](assets/docker-gtk.png)
+
 ## Setup
 
 ```sh

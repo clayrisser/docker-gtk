@@ -3,5 +3,10 @@
 .\#*
 *~
 
-# Compiled
-main
+# Make state
+.make/
+.env
+.env.bak
+
+# Generated from .gitignore
+.dockerignore
